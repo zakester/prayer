@@ -6,21 +6,10 @@
 
 // a method of how to calculate prayers.
 // https://radhifadlillah.com/blog/2020-09-06-calculating-prayer-times/#sun-altitude-at-fajr-and-isha
-
-// Requirements.
-#define LAT 36.5167
-#define LONG 2.88333   // 2.884194  in degrees
-#define ELEVATION 232.55 // in meters
-#define TIME_ZONE 1.0    // between -14UTC to +12UTC
-#define ASR_FACTOR 1     // Shafii = 1, Hanafi = 2
-#define SUN_ALTITUDE_FAJR 18.0
-#define SUN_ALTITUDE_ISHA 18.0
-
-#define PI 3.14159265358979323846
-
-#define DEG_TO_RAD(degrees) ((degrees) * (PI / 180.0))
-#define RAD_TO_DEG(rad) ((rad) * (180.0 / PI))
-#define ACOT(x) ((PI / 2.0) - atanf(x))
+// https://astronomycenter.net/pdf/subeahi_2007.pdf
+// https://astronomycenter.net/paper.html
+// https://eprints.um.edu.my/16657/1/0001.pdf
+// dhuha time 4° 15'. or 5°.
 
 void hour_to_HMS(float hours, uint8_t *h, uint8_t *m, uint8_t *s) {
   *h = (uint8_t)hours;
@@ -29,19 +18,15 @@ void hour_to_HMS(float hours, uint8_t *h, uint8_t *m, uint8_t *s) {
   *s = (uint8_t)((remainingMinutes - *m) * 60);
 }
 
-void output(Prayer prayer, uint8_t *h, uint8_t *m, uint8_t *s) {
-}
-
-#define DESCEND_CORECTION (0 / 60.0) // 2min.
 int main(int argc, char *argv[]) {
-  Prayer prayers[6];
+  Prayer prayers[NUMBER_OF_PRAYER_TIME];
   prayer(prayers);
 
   uint8_t h, m, s;
 
-  for (int i = 0; i < 6; ++i) {
+  for (int i = 0; i < NUMBER_OF_PRAYER_TIME; ++i) {
     hour_to_HMS(prayers[i].time, &h, &m, &s);
-    printf("%s time: %02u:%02u:%02u\n", to_string(prayers[i].pt), h, m, s);
+    printf("time: %02u:%02u:%02u (%s)\n", h, m, s, pt_to_string(prayers[i].pt));
   }
 
   return EXIT_SUCCESS;

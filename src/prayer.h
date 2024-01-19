@@ -1,6 +1,8 @@
 #ifndef PRAYER_
 #define PRAYER_
 
+#define NUMBER_OF_PRAYER_TIME 6
+
 typedef struct {
   float SA_FAJR;
   float SA_SUNRISE;
@@ -27,6 +29,6 @@ typedef struct {
 
 void prayer_sun_altitude(PrayerSunAltitude *psa, float delta); // `delta` is Sun Declination
 void prayer(Prayer *p);
-const char *to_string(enum PrayerTime pt);
+const char *pt_to_string(enum PrayerTime pt);
 
 #endif // PRAYER_

@@ -11,7 +11,7 @@
 #define EARTH_TILT 23.45
 #define NOON_JAN_2000_IN_JULIAN 2451545.0
 #define TRANSIT_TIME(et) ((12 + TIME_ZONE) - (LONG / 15) - (et / 60))
-#define DESCEND_CORECTION (0 / 60.0) // 0min.
+#define DESCEND_CORECTION (2 / 60.0) // 2min.
 
 void prayer_sun_altitude(PrayerSunAltitude *psa, float delta) {
   psa->SA_FAJR = -(SUN_ALTITUDE_FAJR);
@@ -31,7 +31,7 @@ void prayer(Prayer *p) {
   prayer_sun_altitude(&psa, delta);
 
   float tt = TRANSIT_TIME(et);
-  Prayer pr[6] = {
+  Prayer pr[NUMBER_OF_PRAYER_TIME] = {
       {FAJR, psa.SA_FAJR, tt - hour_angle(psa.SA_FAJR, delta) / 15.0},
       {SUNRISE, psa.SA_SUNRISE, tt - hour_angle(psa.SA_SUNRISE, delta) / 15.0},
       {ZUHR, DESCEND_CORECTION, tt + DESCEND_CORECTION},
@@ -40,12 +40,12 @@ void prayer(Prayer *p) {
       {ISHA, psa.SA_ISHA, tt + hour_angle(psa.SA_ISHA, delta) / 15.0},
   };
 
-  for (uint8_t i = 0; i < 6; ++i) {
+  for (uint8_t i = 0; i < NUMBER_OF_PRAYER_TIME; ++i) {
     p[i] = pr[i];
   }
 }
 
-const char *to_string(enum PrayerTime pt) {
+const char *pt_to_string(enum PrayerTime pt) {
   switch (pt) {
   case FAJR:
     return "Fajr";
