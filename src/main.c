@@ -4,11 +4,6 @@
 
 #include "prayer.h"
 
-// a method of how to calculate prayers.
-// https://radhifadlillah.com/blog/2020-09-06-calculating-prayer-times/#sun-altitude-at-fajr-and-isha
-// https://astronomycenter.net/pdf/subeahi_2007.pdf
-// https://astronomycenter.net/paper.html
-// https://eprints.um.edu.my/16657/1/0001.pdf
 // dhuha time 4° 15'. or 5°.
 
 void hour_to_HMS(float hours, uint8_t *h, uint8_t *m, uint8_t *s) {
