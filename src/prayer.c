@@ -45,6 +45,11 @@ void prayer(Prayer *p) {
   }
 }
 
+
+enum PrayerTime next_prayer(Prayer *p) {
+
+}
+
 const char *pt_to_string(enum PrayerTime pt) {
   switch (pt) {
   case FAJR:

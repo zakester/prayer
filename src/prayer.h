@@ -29,6 +29,8 @@ typedef struct {
 
 void prayer_sun_altitude(PrayerSunAltitude *psa, float delta); // `delta` is Sun Declination
 void prayer(Prayer *p);
+enum PrayerTime next_prayer(Prayer *p);
+
 const char *pt_to_string(enum PrayerTime pt);
 
 #endif // PRAYER_

@@ -1,5 +1,6 @@
 #include "julian.h"
 #include <stdint.h>
+#include <stdio.h>
 #include <time.h>
 
 #include "general.h"
