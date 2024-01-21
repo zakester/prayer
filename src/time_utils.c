@@ -9,8 +9,6 @@ void hour_to_HMS(HMS *hms, float hours) {
   hms->sec = (uint8_t)((remainingMinutes - hms->min) * 60);
 }
 
-void HMS_to_hour() {}
-
 float time_in_decimal() {
   time_t t = time(NULL);
   struct tm date = *localtime(&t);

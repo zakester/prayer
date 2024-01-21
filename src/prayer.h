@@ -1,6 +1,7 @@
 #ifndef PRAYER_
 #define PRAYER_
 
+#include "time_utils.h"
 #define NUMBER_OF_PRAYER_TIME 6
 
 typedef struct {
@@ -29,7 +30,8 @@ typedef struct {
 
 void prayer_sun_altitude(PrayerSunAltitude *psa, float delta); // `delta` is Sun Declination
 void prayer(Prayer *p);
-enum PrayerTime next_prayer(Prayer *p);
+
+Prayer next_prayer(Prayer *prayers);
 
 const char *pt_to_string(enum PrayerTime pt);
 const char *pt_to_arabic(enum PrayerTime pt);

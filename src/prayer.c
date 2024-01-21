@@ -6,6 +6,7 @@
 
 #include <math.h>
 #include <stdint.h>
+#include <stdio.h>
 
 #define AR_CORRECTION -0.8333 // Atmosphier Refliction.
 #define EARTH_TILT 23.45
@@ -45,9 +46,13 @@ void prayer(Prayer *p) {
   }
 }
 
-
-enum PrayerTime next_prayer(Prayer *p) {
-
+Prayer next_prayer(Prayer *prayers) {
+  for (int i = 0; i < NUMBER_OF_PRAYER_TIME; ++i) {
+    if (time_in_decimal() - prayers[i].time < 0) {
+      return prayers[i];
+    }
+  }
+  return prayers[0];
 }
 
 const char *pt_to_string(enum PrayerTime pt) {
