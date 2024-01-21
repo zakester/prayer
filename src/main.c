@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < NUMBER_OF_PRAYER_TIME; ++i) {
       hour_to_HMS(&hms, prayers[i].time);
       printf("%02u:%02u:%02u (%s)\n", hms.hour, hms.min, hms.sec,
-             pt_to_string(prayers[i].pt));
+             pt_to_arabic(prayers[i].pt));
     }
     return EXIT_SUCCESS;
   }

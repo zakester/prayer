@@ -66,3 +66,20 @@ const char *pt_to_string(enum PrayerTime pt) {
     return "Isha";
   }
 }
+
+const char *pt_to_arabic(enum PrayerTime pt) {
+  switch (pt) {
+  case FAJR:
+    return "الفجر";
+  case SUNRISE:
+    return "شروق الشمس";
+  case ZUHR:
+    return "الظهر";
+  case ASR:
+    return "العصر";
+  case MAGHRIB:
+    return "المغرب";
+  case ISHA:
+    return "العشاء";
+  }
+}

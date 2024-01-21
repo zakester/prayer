@@ -32,5 +32,6 @@ void prayer(Prayer *p);
 enum PrayerTime next_prayer(Prayer *p);
 
 const char *pt_to_string(enum PrayerTime pt);
+const char *pt_to_arabic(enum PrayerTime pt);
 
 #endif // PRAYER_
