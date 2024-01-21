@@ -7,7 +7,10 @@
 #include "time_utils.h"
 
 // dhuha time 4° 15'. or 5°.
-void help();
+
+void np_command(Prayer *prayers, float time_decimal, HMS *hms);
+void npr_command(Prayer *prayers, float time_decimal, HMS *hms);
+void help_command();
 
 int main(int argc, char *argv[]) {
   Prayer prayers[NUMBER_OF_PRAYER_TIME];
@@ -22,37 +25,20 @@ int main(int argc, char *argv[]) {
       printf("%02u:%02u:%02u (%s)\n", hms.hour, hms.min, hms.sec,
              pt_to_string(prayers[i].pt));
     }
+    return EXIT_SUCCESS;
   }
 
   float time_decimal = time_in_decimal();
 
   for (int i = 1; i < argc; ++i) {
     if (strcmp(argv[i], "-np") == 0) {
-      for (int i = 0; i < NUMBER_OF_PRAYER_TIME; ++i) {
-        float remaining = time_decimal - prayers[i].time;
-        if (time_decimal - prayers[i].time < 0) {
-          hour_to_HMS(&hms, prayers[i].time);
-          // TODO: for fajr we gotta use the calculation of tomorrow.
-          printf("%s %02u:%02u:%02u\n", pt_to_string(prayers[i].pt), hms.hour,
-                 hms.min, hms.sec);
-          break;
-        }
-      }
+      np_command(prayers, time_decimal, &hms);
       break;
     } else if (strcmp(argv[i], "-npr") == 0) {
-      for (int i = 0; i < NUMBER_OF_PRAYER_TIME; ++i) {
-        float remaining = time_decimal - prayers[i].time;
-        if (remaining < 0) {
-          hour_to_HMS(&hms, fabs(remaining));
-          // TODO: for fajr we gotta use the calculation of tomorrow.
-          printf("%s %02u:%02u:%02u\n", pt_to_string(prayers[i].pt), hms.hour,
-                 hms.min, hms.sec);
-          break;
-        }
-      }
+      npr_command(prayers, time_decimal, &hms);
       break;
     } else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
-      help();
+      help_command();
       break;
     } else {
       printf("`%s` is not a prayer command. See `prayer -h` or `prayer --help`",
@@ -63,7 +49,33 @@ int main(int argc, char *argv[]) {
   return EXIT_SUCCESS;
 }
 
-void help() {
+void np_command(Prayer *prayers, float time_decimal, HMS *hms) {
+  for (int i = 0; i < NUMBER_OF_PRAYER_TIME; ++i) {
+    float remaining = time_decimal - prayers[i].time;
+    if (time_decimal - prayers[i].time < 0) {
+      hour_to_HMS(hms, prayers[i].time);
+      // TODO: for fajr we gotta use the calculation of tomorrow.
+      printf("%s %02u:%02u:%02u\n", pt_to_string(prayers[i].pt), hms->hour,
+             hms->min, hms->sec);
+      break;
+    }
+  }
+}
+
+void npr_command(Prayer *prayers, float time_decimal, HMS *hms) {
+  for (int i = 0; i < NUMBER_OF_PRAYER_TIME; ++i) {
+    float remaining = time_decimal - prayers[i].time;
+    if (remaining < 0) {
+      hour_to_HMS(hms, fabs(remaining));
+      // TODO: for fajr we gotta use the calculation of tomorrow.
+      printf("%s %02u:%02u:%02u\n", pt_to_string(prayers[i].pt), hms->hour,
+             hms->min, hms->sec);
+      break;
+    }
+  }
+}
+
+void help_command() {
   printf("-np           Outputs the next prayer and its time.\n");
   printf("-npr          Outputs the next prayer and the remaining time.\n");
   printf("-h --help     Outputs this list.\n");
