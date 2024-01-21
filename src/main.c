@@ -7,6 +7,7 @@
 #include "time_utils.h"
 
 // dhuha time 4° 15'. or 5°.
+void help();
 
 int main(int argc, char *argv[]) {
   Prayer prayers[NUMBER_OF_PRAYER_TIME];
@@ -48,10 +49,18 @@ int main(int argc, char *argv[]) {
           break;
         }
       }
+    } else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
+      help();
     } else {
-      printf("Commnad not found");
+      printf("`%s` is not a prayer command. See `prayer -h` or `prayer --help`",
+             argv[i]);
     }
   }
-
   return EXIT_SUCCESS;
+}
+
+void help() {
+  printf("-np           Outputs the next prayer and its time.\n");
+  printf("-npr          Outputs the next prayer and the remaining time.\n");
+  printf("-h --help     Outputs this list.\n");
 }
