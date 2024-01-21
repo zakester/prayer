@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
     if (strcmp(argv[i], "-np") == 0) {
       float time_decimal = time_in_decimal();
       for (int i = 0; i < NUMBER_OF_PRAYER_TIME; ++i) {
-        if (time_decimal - prayers[i].time >= 0) {
+        if (time_decimal - prayers[i].time < 0) {
           HMS hms;
           hour_to_HMS(&hms, prayers[i].time);
           // TODO: for fajr we gotta use the calculation of tomorrow.
