@@ -38,6 +38,7 @@ int main(int argc, char *argv[]) {
           break;
         }
       }
+      break;
     } else if (strcmp(argv[i], "-npr") == 0) {
       for (int i = 0; i < NUMBER_OF_PRAYER_TIME; ++i) {
         float remaining = time_decimal - prayers[i].time;
@@ -49,11 +50,14 @@ int main(int argc, char *argv[]) {
           break;
         }
       }
+      break;
     } else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
       help();
+      break;
     } else {
       printf("`%s` is not a prayer command. See `prayer -h` or `prayer --help`",
              argv[i]);
+      break;
     }
   }
   return EXIT_SUCCESS;
