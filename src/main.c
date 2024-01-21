@@ -12,9 +12,10 @@ int main(int argc, char *argv[]) {
   Prayer prayers[NUMBER_OF_PRAYER_TIME];
   prayer(prayers);
 
+  HMS hms;
+
   // if there is no args.
   if (argc == 1) {
-    HMS hms;
     for (int i = 0; i < NUMBER_OF_PRAYER_TIME; ++i) {
       hour_to_HMS(&hms, prayers[i].time);
       printf("%02u:%02u:%02u (%s)\n", hms.hour, hms.min, hms.sec,
@@ -23,11 +24,12 @@ int main(int argc, char *argv[]) {
   }
 
   float time_decimal = time_in_decimal();
+
   for (int i = 1; i < argc; ++i) {
     if (strcmp(argv[i], "-np") == 0) {
       for (int i = 0; i < NUMBER_OF_PRAYER_TIME; ++i) {
+        float remaining = time_decimal - prayers[i].time;
         if (time_decimal - prayers[i].time < 0) {
-          HMS hms;
           hour_to_HMS(&hms, prayers[i].time);
           // TODO: for fajr we gotta use the calculation of tomorrow.
           printf("%s %02u:%02u:%02u\n", pt_to_string(prayers[i].pt), hms.hour,
@@ -39,7 +41,6 @@ int main(int argc, char *argv[]) {
       for (int i = 0; i < NUMBER_OF_PRAYER_TIME; ++i) {
         float remaining = time_decimal - prayers[i].time;
         if (remaining < 0) {
-          HMS hms;
           hour_to_HMS(&hms, fabs(remaining));
           // TODO: for fajr we gotta use the calculation of tomorrow.
           printf("%s %02u:%02u:%02u\n", pt_to_string(prayers[i].pt), hms.hour,
@@ -48,6 +49,7 @@ int main(int argc, char *argv[]) {
         }
       }
     } else {
+      printf("Commnad not found");
     }
   }
 
