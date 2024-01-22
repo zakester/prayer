@@ -52,9 +52,6 @@ void np_command(PR_Prayer *prayers, PR_HMS *hms) {
   PR_Prayer p = pr_next_prayer(prayers);
   if (p.pt == PR_FAJR) {
     pr_fajr(&p, pr_julian_tommorow());
-    printf("CHECK IF VALUES ARE THE SAME:\n");
-    printf("p: %f", p.time);
-    printf("prayers[0]: %f", prayers[0].time);
   }
   pr_hour_to_HMS(hms, p.time);
   // TODO: for fajr we gotta use the calculation of tomorrow.
@@ -71,10 +68,6 @@ void npr_command(PR_Prayer *prayers, PR_HMS *hms) {
     pr_fajr(&p, jd);
 
     remaining = pr_time_in_decimal() - (p.time + 24.0);
-
-    printf("CHECK IF VALUES ARE THE SAME:\n");
-    printf("p: %f", p.time);
-    printf("prayers[0]: %f", prayers[0].time);
   }
 
   pr_hour_to_HMS(hms, fabs(remaining));
