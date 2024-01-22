@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-double gregorian_to_julian(uint16_t y, uint8_t m, uint8_t d);
-double julian();
+double pr_julian();
+double pr_gregorian_to_julian(uint16_t y, uint8_t m, uint8_t d);
 
 #endif // JULIAN_H_

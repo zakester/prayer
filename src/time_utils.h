@@ -7,9 +7,9 @@ typedef struct {
   uint8_t hour;
   uint8_t min;
   uint8_t sec;
-} HMS;
+} PR_HMS;
 
-void hour_to_HMS(HMS *hms, float hours);
-float time_in_decimal();
+void pr_hour_to_HMS(PR_HMS *hms, float hours);
+float pr_time_in_decimal();
 
 #endif // !TIME_UTILS_

@@ -2,7 +2,8 @@
 #define PRAYER_
 
 #include "time_utils.h"
-#define NUMBER_OF_PRAYER_TIME 6
+
+#define PR_NUMBER_OF_PRAYER_TIME 6
 
 typedef struct {
   float SA_FAJR;
@@ -10,30 +11,32 @@ typedef struct {
   float SA_ASR;
   float SA_MAGHRIB;
   float SA_ISHA;
-} PrayerSunAltitude;
+} PR_PrayerSunAltitude;
 
 
-enum PrayerTime {
-  FAJR,
-  SUNRISE,
-  ZUHR,
-  ASR,
-  MAGHRIB,
-  ISHA,
+enum PR_PrayerTime {
+  PR_FAJR,
+  PR_SUNRISE,
+  PR_ZUHR,
+  PR_ASR,
+  PR_MAGHRIB,
+  PR_ISHA,
 };
 
 typedef struct {
-  enum PrayerTime pt;
+  enum PR_PrayerTime pt;
   float sun_altitude;
   double time;
-} Prayer;
+} PR_Prayer;
 
-void prayer_sun_altitude(PrayerSunAltitude *psa, float delta); // `delta` is Sun Declination
-void prayer(Prayer *p);
+void pr_prayer_sun_altitude(PR_PrayerSunAltitude *psa, float delta); // `delta` is Sun Declination
 
-Prayer next_prayer(Prayer *prayers);
+void pr_prayers(PR_Prayer *p, double jd);
+void pr_fajr(PR_Prayer *p, double jd);
 
-const char *pt_to_string(enum PrayerTime pt);
-const char *pt_to_arabic(enum PrayerTime pt);
+PR_Prayer pr_next_prayer(PR_Prayer *prayers);
+
+const char *pr_pt_to_string(enum PR_PrayerTime pt);
+const char *pr_pt_to_arabic(enum PR_PrayerTime pt);
 
 #endif // PRAYER_

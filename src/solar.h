@@ -7,11 +7,11 @@ typedef struct {
   float SA_ASR;
   float SA_MAGHRIB;
   float SA_ISHA;
-} SunAltitude;
+} PR_SunAltitude;
 
 //void sun_altitude(SunAltitude *sa, float delta); // `delta` is Sun Declination
-float sun_declination(double jd);                // `jd` is Julian Day Number
-float equation_of_time(double jd);
-double hour_angle(float angle, float delta);     // angle in degrees.
+float pr_sun_declination(double jd);                // `jd` is Julian Day Number
+float pr_equation_of_time(double jd);
+double pr_hour_angle(float angle, float delta);     // angle in degrees.
 
 #endif // SOLAR_

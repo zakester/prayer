@@ -3,27 +3,28 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "julian.h"
 #include "prayer.h"
 #include "time_utils.h"
 
 // dhuha time 4° 15'. or 5°.
 
-void np_command(Prayer *prayers, HMS *hms);
-void npr_command(Prayer *prayers, HMS *hms);
+void np_command(PR_Prayer *prayers, PR_HMS *hms);
+void npr_command(PR_Prayer *prayers, PR_HMS *hms);
 void help_command();
 
 int main(int argc, char *argv[]) {
-  Prayer prayers[NUMBER_OF_PRAYER_TIME];
-  prayer(prayers);
+  PR_Prayer prayers[PR_NUMBER_OF_PRAYER_TIME];
+  pr_prayers(prayers, pr_julian());
 
-  HMS hms;
+  PR_HMS hms;
 
   // if there is no args.
   if (argc == 1) {
-    for (int i = 0; i < NUMBER_OF_PRAYER_TIME; ++i) {
-      hour_to_HMS(&hms, prayers[i].time);
+    for (int i = 0; i < PR_NUMBER_OF_PRAYER_TIME; ++i) {
+      pr_hour_to_HMS(&hms, prayers[i].time);
       printf("%02u:%02u:%02u (%s)\n", hms.hour, hms.min, hms.sec,
-             pt_to_string(prayers[i].pt));
+             pr_pt_to_string(prayers[i].pt));
     }
     return EXIT_SUCCESS;
   }
@@ -47,21 +48,28 @@ int main(int argc, char *argv[]) {
   return EXIT_SUCCESS;
 }
 
-void np_command(Prayer *prayers, HMS *hms) {
-  Prayer p = next_prayer(prayers);
-  hour_to_HMS(hms, p.time);
+void np_command(PR_Prayer *prayers, PR_HMS *hms) {
+  PR_Prayer p = pr_next_prayer(prayers);
+  pr_hour_to_HMS(hms, p.time);
   // TODO: for fajr we gotta use the calculation of tomorrow.
-  printf("%s %02u:%02u:%02u\n", pt_to_string(p.pt), hms->hour, hms->min,
+  printf("%s %02u:%02u:%02u\n", pr_pt_to_string(p.pt), hms->hour, hms->min,
          hms->sec);
 }
 
-void npr_command(Prayer *prayers, HMS *hms) {
-  Prayer p = next_prayer(prayers);
-  float remaining = time_in_decimal() - p.time;
-  remaining = remaining < 0 ? remaining : time_in_decimal() - (p.time + 24.0);
-  hour_to_HMS(hms, fabs(remaining));
+void npr_command(PR_Prayer *prayers, PR_HMS *hms) {
+  PR_Prayer p = pr_next_prayer(prayers);
+  
+  float remaining = pr_time_in_decimal() - p.time;
+  if (remaining > 0) {
+    double jd = pr_gregorian_to_julian(2024, 1, 23);
+    pr_fajr(&p, jd);
+
+    remaining = pr_time_in_decimal() - (p.time + 24.0);
+  }
+
+  pr_hour_to_HMS(hms, fabs(remaining));
   // TODO: for fajr we gotta use the calculation of tomorrow.
-  printf("%s %02u:%02u:%02u\n", pt_to_string(p.pt), hms->hour, hms->min,
+  printf("%s %02u:%02u:%02u\n", pr_pt_to_string(p.pt), hms->hour, hms->min,
          hms->sec);
 }
 
