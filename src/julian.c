@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "general.h"
+#include "config.h"
 
 #define PR_HOUR 0.0
 #define PR_MIN 0.0

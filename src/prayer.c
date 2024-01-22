@@ -1,5 +1,5 @@
 #include "prayer.h"
-#include "general.h"
+#include "config.h"
 #include "math_utils.h"
 #include "solar.h"
 
