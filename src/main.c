@@ -50,6 +50,12 @@ int main(int argc, char *argv[]) {
 
 void np_command(PR_Prayer *prayers, PR_HMS *hms) {
   PR_Prayer p = pr_next_prayer(prayers);
+  if (p.pt == PR_FAJR) {
+    pr_fajr(&p, pr_julian_tommorow());
+    printf("CHECK IF VALUES ARE THE SAME:\n");
+    printf("p: %f", p.time);
+    printf("prayers[0]: %f", prayers[0].time);
+  }
   pr_hour_to_HMS(hms, p.time);
   // TODO: for fajr we gotta use the calculation of tomorrow.
   printf("%s %02u:%02u:%02u\n", pr_pt_to_string(p.pt), hms->hour, hms->min,
@@ -61,14 +67,17 @@ void npr_command(PR_Prayer *prayers, PR_HMS *hms) {
   
   float remaining = pr_time_in_decimal() - p.time;
   if (remaining > 0) {
-    double jd = pr_gregorian_to_julian(2024, 1, 23);
+    double jd = pr_julian_tommorow();
     pr_fajr(&p, jd);
 
     remaining = pr_time_in_decimal() - (p.time + 24.0);
+
+    printf("CHECK IF VALUES ARE THE SAME:\n");
+    printf("p: %f", p.time);
+    printf("prayers[0]: %f", prayers[0].time);
   }
 
   pr_hour_to_HMS(hms, fabs(remaining));
-  // TODO: for fajr we gotta use the calculation of tomorrow.
   printf("%s %02u:%02u:%02u\n", pr_pt_to_string(p.pt), hms->hour, hms->min,
          hms->sec);
 }
