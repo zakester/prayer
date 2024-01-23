@@ -8,6 +8,8 @@ In Windows you can just run **`build.bat`** file and it will generate **`prayer.
 
 If you want to call **`prayer.exe`** from everywhere using your cmd you can just add the tool to your **Path Enviroment**.
 
+**Note** that you need to have `zig` installed in your system to run **`build.bat`**, if you have `gcc` or `clangd` you can just replace `zig cc` with your preferred compiler.
+
 Usage
 -
 ```
