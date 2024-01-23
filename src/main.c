@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+//#include <conio.h>
+#include <Windows.h>
 
 #include "julian.h"
 #include "prayer.h"
@@ -11,6 +13,7 @@
 
 void np_command(PR_Prayer *prayers, PR_HMS *hms);
 void npr_command(PR_Prayer *prayers, PR_HMS *hms);
+void npru_command(PR_Prayer *prayers, PR_HMS *hms);
 void help_command();
 
 int main(int argc, char *argv[]) {
@@ -36,6 +39,8 @@ int main(int argc, char *argv[]) {
     } else if (strcmp(argv[i], "-npr") == 0) {
       npr_command(prayers, &hms);
       break;
+    } else if (strcmp(argv[i], "-npru") == 0) {
+      npru_command(prayers, &hms);
     } else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
       help_command();
       break;
@@ -61,7 +66,7 @@ void np_command(PR_Prayer *prayers, PR_HMS *hms) {
 
 void npr_command(PR_Prayer *prayers, PR_HMS *hms) {
   PR_Prayer p = pr_next_prayer(prayers);
-  
+
   float remaining = pr_time_in_decimal() - p.time;
   if (remaining > 0) {
     double jd = pr_julian_tommorow();
@@ -75,8 +80,41 @@ void npr_command(PR_Prayer *prayers, PR_HMS *hms) {
          hms->sec);
 }
 
+void npru_command(PR_Prayer *prayers, PR_HMS *hms) {
+  PR_Prayer p = pr_next_prayer(prayers);
+  float remaining = pr_time_in_decimal() - p.time;
+  if (remaining > 0) {
+    double jd = pr_julian_tommorow();
+    pr_fajr(&p, jd);
+
+    remaining = pr_time_in_decimal() - (p.time + 24.0);
+  }
+
+  pr_hour_to_HMS(hms, fabs(remaining));
+  
+  while (!(hms->sec == 0 && hms->min == 0 && hms->hour == 0)) {
+    //if (kbhit()) {
+    //  char ch = getch();
+    //  if (ch == 'q' || ch == 'Q') {
+    //    printf("\nExist\n");
+    //  }
+    //}
+    printf("%s %02u:%02u:%02u\r", pr_pt_to_string(p.pt), hms->hour, hms->min,
+           hms->sec);
+    fflush(stdout);
+
+    hms->sec = (hms->sec + 59) % 60;
+    hms->min = (hms->min - (hms->sec == 59)) % 60;
+    hms->hour = (hms->hour - (hms->min == 59 && hms->sec == 59)) % 24;
+
+    Sleep(1000);
+  }
+}
+
 void help_command() {
-  printf("-np           Outputs the next prayer and its time.\n");
-  printf("-npr          Outputs the next prayer and the remaining time.\n");
-  printf("-h --help     Outputs this list.\n");
+  printf("-np            Outputs the next prayer and its time.\n");
+  printf("-npr           Outputs the next prayer and the remaining time.\n");
+  printf("-npru          Outputs the next prayer and the remaining time updates in realtime. (auto exit when remaining time is 00:00:00)\n");
+  // todo: -nprul
+  printf("-h --help      Outputs this list.\n");
 }
