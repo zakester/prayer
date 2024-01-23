@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <conio.h>
+#include <conio.h>
 #include <Windows.h>
 
 #include "julian.h"
@@ -93,12 +93,13 @@ void npru_command(PR_Prayer *prayers, PR_HMS *hms) {
   pr_hour_to_HMS(hms, fabs(remaining));
   
   while (!(hms->sec == 0 && hms->min == 0 && hms->hour == 0)) {
-    //if (kbhit()) {
-    //  char ch = getch();
-    //  if (ch == 'q' || ch == 'Q') {
-    //    printf("\nExist\n");
-    //  }
-    //}
+    if (kbhit()) {
+      char ch = getch();
+      if (ch == 'q' || ch == 'Q') {
+        printf("\nExist\n");
+        break;
+      }
+    }
     printf("%s %02u:%02u:%02u\r", pr_pt_to_string(p.pt), hms->hour, hms->min,
            hms->sec);
     fflush(stdout);
