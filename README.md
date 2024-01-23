@@ -35,7 +35,7 @@ If you want to see help just do `-h` or `--help`
 > prayer -h
 -np           Outputs the next prayer and its time.
 -npr          Outputs the next prayer and the remaining time.
--npru          Outputs the next prayer and the remaining time updates in realtime. (auto exit when remaining time is 00:00:00)
+-npru         Outputs the next prayer and the remaining time updates in realtime. (auto exit when remaining time is 00:00:00)
 -h --help     Outputs this list.
 ```
 
