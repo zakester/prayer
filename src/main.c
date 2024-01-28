@@ -125,6 +125,9 @@ void help_command() {
   printf("-npr           Outputs the next prayer and the remaining time.\n");
   printf("-npru          Outputs the next prayer and the remaining time "
          "updates in realtime,\n"
-         " command will auto exit when remaining time is 00:00:00, if you want to loop add use -npru -l instead.\n");
+         " command will auto exit when remaining time is 00:00:00, if you want "
+         "to loop use -npru -l instead.\n");
+  printf("-npru -l       When remaining time is 00:00:00, countdown for the "
+         "next prayer will start.\n");
   printf("-h --help      Outputs this list.\n");
 }
