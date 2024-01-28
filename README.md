@@ -49,6 +49,7 @@ You have to configure `prayer` to your needs to get correct callculation, your c
 
 
 ```C
+// NOTE: EACH TIME YOU CHANGE THIS YOU HAVE TO RE-COMPILE THE TOOL.
 #define PR_LAT 36.5167                        // Latitude in degrees.
 #define PR_LONG 2.88333                       // Longitude in degrees.
 #define PR_ELEVATION 232.55                   // Elevation above sea level in meters.
