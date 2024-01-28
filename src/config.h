@@ -9,6 +9,7 @@
 #define PR_ASR_FACTOR 1                       // Factor of shadow lenght at Asr (Shafii = 1, Hanafi = 2).
 
 #define PR_SUN_ALTITUDE_FAJR 18.0             // Sun altitude at Fajr (Fajr angle) in degrees.
-#define PR_SUN_ALTITUDE_ISHA 17.0             // Sun altitude at Isha (Isha angle) in degrees. In case of Umm al-Qura and Gulf just use 90.0 and it will calculate Isha as Maghrib + 1h30min.
+#define PR_SUN_ALTITUDE_ISHA 17.0             // Sun altitude at Isha (Isha angle) in degrees.
+//#define PR_SUN_ALTITUDE_ISHA 90.0           In case of Umm al-Qura and Gulf just use 90.0 and it will calculate Isha as Maghrib + 1h30min.
 
 #endif // CONFIG_
