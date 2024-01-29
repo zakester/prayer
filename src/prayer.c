@@ -12,7 +12,7 @@
 #define PR_TRANSIT_TIME(et) ((12 + PR_TIME_ZONE) - (PR_LONG / 15) - (et / 60))
 #define PR_DESCEND_CORECTION (2 / 60.0) // 2min.
 
-void pr_prayer_sun_altitude(PR_PrayerSunAltitude *psa, float delta) {
+static void pr_prayer_sun_altitude(PR_PrayerSunAltitude *psa, float delta) {
   psa->SA_FAJR = -(PR_SUN_ALTITUDE_FAJR);
   psa->SA_SUNRISE = PR_AR_CORRECTION - (0.0347 * sqrtf(PR_ELEVATION));
   psa->SA_ASR = PR_RAD_TO_DEG(

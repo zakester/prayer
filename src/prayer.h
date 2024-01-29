@@ -29,7 +29,7 @@ typedef struct {
   double time;
 } PR_Prayer;
 
-void pr_prayer_sun_altitude(PR_PrayerSunAltitude *psa, float delta); // `delta` is Sun Declination
+static void pr_prayer_sun_altitude(PR_PrayerSunAltitude *psa, float delta); // `delta` is Sun Declination
 
 void pr_prayers(PR_Prayer *p, double jd);
 void pr_fajr(PR_Prayer *p, double jd);
