@@ -43,6 +43,13 @@ int main(int argc, char *argv[]) {
     } else if (strcmp(argv[i], "-npru") == 0) {
       boolean loop = argc == 3 && (strcmp(argv[i + 1], "-l") == 0 ||
                                    strcmp(argv[i + 1], "--loop") == 0);
+      if (argc == 3 && !loop) {
+        printf(
+            "`%s` is not a prayer command. See `prayer -h` or `prayer --help`",
+            argv[i + 1]);
+        break;
+      }
+
       npru_command(prayers, &hms, loop);
       break;
     } else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
