@@ -12,9 +12,9 @@
 
 // dhuha time 4° 15'. or 5°.
 
-void np_command(PR_Prayer *prayers, PR_HMS *hms);
-void npr_command(PR_Prayer *prayers, PR_HMS *hms);
-void npru_command(PR_Prayer *prayers, PR_HMS *hms, boolean loop);
+void np_command(PR_Prayer prayers[PR_NUMBER_OF_PRAYER_TIME], PR_HMS *hms);
+void npr_command(PR_Prayer prayers[PR_NUMBER_OF_PRAYER_TIME], PR_HMS *hms);
+void npru_command(PR_Prayer prayers[PR_NUMBER_OF_PRAYER_TIME], PR_HMS *hms, boolean loop);
 void help_command();
 
 int main(int argc, char *argv[]) {
@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
   return EXIT_SUCCESS;
 }
 
-void np_command(PR_Prayer *prayers, PR_HMS *hms) {
+void np_command(PR_Prayer prayers[PR_NUMBER_OF_PRAYER_TIME], PR_HMS *hms) {
   PR_Prayer p = pr_next_prayer(prayers);
   if (p.pt == PR_FAJR) {
     pr_fajr(&p, pr_julian_tommorow());
@@ -75,7 +75,7 @@ void np_command(PR_Prayer *prayers, PR_HMS *hms) {
          hms->sec);
 }
 
-void npr_command(PR_Prayer *prayers, PR_HMS *hms) {
+void npr_command(PR_Prayer prayers[PR_NUMBER_OF_PRAYER_TIME], PR_HMS *hms) {
   PR_Prayer p = pr_next_prayer(prayers);
 
   float remaining = pr_time_in_decimal() - p.time;
@@ -90,7 +90,7 @@ void npr_command(PR_Prayer *prayers, PR_HMS *hms) {
          hms->sec);
 }
 
-void npru_command(PR_Prayer *prayers, PR_HMS *hms, boolean loop) {
+void npru_command(PR_Prayer prayers[PR_NUMBER_OF_PRAYER_TIME], PR_HMS *hms, boolean loop) {
   PR_Prayer p = pr_next_prayer(prayers);
   boolean loop_exit = FALSE;
 

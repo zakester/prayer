@@ -31,10 +31,10 @@ typedef struct {
 
 static void pr_prayer_sun_altitude(PR_PrayerSunAltitude *psa, float delta); // `delta` is Sun Declination
 
-void pr_prayers(PR_Prayer *p, double jd);
+void pr_prayers(PR_Prayer p[PR_NUMBER_OF_PRAYER_TIME], double jd);
 void pr_fajr(PR_Prayer *p, double jd);
 
-PR_Prayer pr_next_prayer(PR_Prayer *prayers);
+PR_Prayer pr_next_prayer(PR_Prayer prayers[PR_NUMBER_OF_PRAYER_TIME]);
 
 const char *pr_pt_to_string(enum PR_PrayerTime pt);
 const char *pr_pt_to_arabic(enum PR_PrayerTime pt);

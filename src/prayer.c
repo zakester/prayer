@@ -21,7 +21,7 @@ static void pr_prayer_sun_altitude(PR_PrayerSunAltitude *psa, float delta) {
   psa->SA_ISHA = -(PR_SUN_ALTITUDE_ISHA);
 }
 
-void pr_prayers(PR_Prayer *p, double jd) {
+void pr_prayers(PR_Prayer p[PR_NUMBER_OF_PRAYER_TIME], double jd) {
   float delta, et;
   delta = pr_sun_declination(jd), et = pr_equation_of_time(jd);
 
@@ -61,7 +61,7 @@ void pr_fajr(PR_Prayer *p, double jd) {
   p->time = tt - pr_hour_angle(psa.SA_FAJR, delta) / 15.0;
 }
 
-PR_Prayer pr_next_prayer(PR_Prayer *prayers) {
+PR_Prayer pr_next_prayer(PR_Prayer prayers[PR_NUMBER_OF_PRAYER_TIME]) {
   for (int i = 0; i < PR_NUMBER_OF_PRAYER_TIME; ++i) {
     if (pr_time_in_decimal() - prayers[i].time < 0) {
       return prayers[i];
